@@ -100,6 +100,8 @@ FROM sales;
 ```
 <img width="147" alt="Screenshot 2023-12-07 at 5 46 16 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/7737cd12-4c17-47ae-be36-11a6b7e1d853">
 
+The sales data containes three cities—Mandalay (Branch B), Yangon (Branch A), and Naypyitaw (Branch C). Additionally, two distinct customer types, Normal and Member.
+
 ### Product Analysis
 Conduct analysis of the data to understand the different product lines, the product lines performing best, and the product lines that need to be improved.
 

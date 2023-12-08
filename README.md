@@ -73,3 +73,22 @@ Here are the new columns created:
 First, I wanted to gain some basic information about the data to know what I was working with. I used the SQL statement below to answer the following questions:
 
 1. How many different cities does the data have?
+```
+-- How many unique cities does the data have?
+SELECT
+	DISTINCT city
+FROM sales;
+```
+<img width="110" alt="Screenshot 2023-12-07 at 5 42 34 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1104210a-8998-40f1-8965-b7401a48b134">
+
+2. In what city is each branch?
+```
+-- In which city is each branch?
+SELECT
+	DISTINCT branch,
+    city
+FROM sales;
+```
+<img width="147" alt="Screenshot 2023-12-07 at 5 44 06 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1b6de2d8-44ae-4bd5-bde8-41af6edb6975">
+
+3. How many different customer types does the data have?

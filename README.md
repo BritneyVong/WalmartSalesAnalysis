@@ -6,4 +6,6 @@ I found this dataset from Kaggle. It contains sales transactions from three diff
 
 ## Notes
 For more detailed information about the data, I modified the table to add some new columns:
-time_of_day will give insight into sales in the Morning, Afternoon, and Evening. This will help answer the question of which part of the day most sales are made.
+
+> time_of_day will give insight into sales in the Morning, Afternoon, and Evening. This will help answer the question of which part of the day most sales are made.
+

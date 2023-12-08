@@ -1,6 +1,6 @@
 # Walmart Sales Analysis
 In this project, I used MySQL to analyze Walmart sales data to gain insight and understand the different factors that affect sales of the different branches.
-The full code to this project is linked [HERE](https://github.com/BritneyVong/WalmartSalesAnalysis/blob/main/SQL_Query).
+The full code to this project is linked [HERE](https://github.com/BritneyVong/WalmartSalesAnalysis/blob/main/Project%20Full%20Code).
 
 ## About The Data
 I found this dataset from Kaggle. It contains sales transactions from three different branches of Walmart, respectively located in Mandalay, Yangon and Naypyitaw.

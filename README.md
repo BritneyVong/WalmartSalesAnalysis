@@ -8,7 +8,7 @@ I found this dataset from Kaggle. It contains sales transactions from three diff
 ## Notes
 For more detailed information about the data, I modified the table to add some new columns:
 
-> time_of_day will give insight into sales in the Morning, Afternoon, and Evening. This will help answer the question of which part of the day most sales are made.
+> time_of_day will give insight into sales in the Morning, Afternoon, and Evening. This will help answer the question of which part of the day most sales are made. I also ran into some issues creating this column but I was able to fix it using delimiters.
 
 ```
 /* MySQL appears to be running the alter table query at the same time as the udpate query so I keep getting an error loading in the data
@@ -31,4 +31,20 @@ UPDATE sales SET time_of_day = (
 
 -- Next, I reset the DELIMITER back to ;
 DELIMITER ;
+```
+
+> day_name contains the extracted days of the week on which the given transaction took place (Mon, Tue, Wed, Thur, Fri). This will help answer the question of which day of the week each branch is busiest.
+
+```
+-- day_name column data
+SELECT
+	date,
+    DAYNAME(date) AS day_name
+FROM sales;
+
+-- creating day_name column
+ALTER TABLE sales ADD COLUMN day_name VARCHAR(10);
+
+-- inserting the data into the day_name column
+UPDATE sales SET day_name = DAYNAME(date);
 ```

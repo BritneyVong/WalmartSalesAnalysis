@@ -31,5 +31,4 @@ UPDATE sales SET time_of_day = (
 
 -- Next, I reset the DELIMITER back to ;
 DELIMITER ;
-
 ```

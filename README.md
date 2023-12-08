@@ -48,3 +48,19 @@ ALTER TABLE sales ADD COLUMN day_name VARCHAR(10);
 -- inserting the data into the day_name column
 UPDATE sales SET day_name = DAYNAME(date);
 ```
+
+> month_name that contains the extracted months of the year on which the given transaction took place (Jan, Feb, Mar). Help determine which month of the year has the most profit.
+
+```
+-- month_name column data
+SELECT 
+	date,
+    MONTHNAME(date) AS month_name
+FROM sales;
+
+-- creating month_name column
+ALTER TABLE sales ADD COLUMN month_name VARCHAR(10);
+
+-- inserting data into month_name column
+UPDATE sales SET month_name = MONTHNAME(date);
+```

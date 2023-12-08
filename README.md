@@ -148,4 +148,27 @@ This query displays the product lines with the largest revenue at the top. I was
    
 
 4. What is the average rating of each product line?
+```
+SELECT
+	product_line,
+    ROUND(AVG(rating), 2) AS avg_rating
+FROM sales
+GROUP BY product_line
+ORDER BY avg_rating DESC;
+```
+<img width="225" alt="Screenshot 2023-12-07 at 6 27 49 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/e8b879f5-49c1-4420-8988-fe0ce57c4ed0">
 
+**Best Performing Product Lines:**
+
+Electronic accessories sold the most products with 961 units sold.
+
+Food and beverages brought in the most revenue of $56,144.8440.
+
+Food and beverages have the highest average rating of 7.11.
+
+**Product Lines that Need Improvement:**
+Health and beauty sold the least products with 844 units sold. This product line has relatively lower sales compared to others.
+
+Health and beauty also had the lowest revenue of $48,854.3790. It's worth considering strategies to boost sales in this category.
+
+Home and lifestyle and Sports and travel have slightly lower average ratings (6.84 and 6.86, respectively). There may be opportunities to improve customer satisfaction in these categories.

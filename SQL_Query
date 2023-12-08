@@ -1,0 +1,239 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS walmartSales;
+
+
+-- Create table
+CREATE TABLE IF NOT EXISTS sales(
+	invoice_id VARCHAR(30) NOT NULL PRIMARY KEY,
+    branch VARCHAR(5) NOT NULL,
+    city VARCHAR(30) NOT NULL,
+    customer_type VARCHAR(30) NOT NULL,
+    gender VARCHAR(30) NOT NULL,
+    product_line VARCHAR(100) NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    tax_pct FLOAT(6,4) NOT NULL,
+    total DECIMAL(12, 4) NOT NULL,
+    date DATETIME NOT NULL,
+    time TIME NOT NULL,
+    payment VARCHAR(15) NOT NULL,
+    cogs DECIMAL(10,2) NOT NULL,
+    gross_margin_pct FLOAT(11,9),
+    gross_income DECIMAL(12, 4),
+    rating FLOAT(2, 1)
+);
+
+
+-- time_of_day preview
+SELECT
+	time,
+	(CASE
+		WHEN time BETWEEN "00:00:00" AND "12:00:00" THEN "Morning"
+        WHEN time BETWEEN "12:01:00" AND "16:00:00" THEN "Afternoon"
+        ELSE "Evening"
+    END) AS time_of_day
+FROM sales;
+
+
+/* MySQL appears to be running the alter table query at the same time as the udpate query so I keep getting an error loading in the data
+into the time_of_day column because the alter table query runs again and there is a dupliacte column. To fix this, I added a DELIMITER
+statement to run both queries at the same time. First I set the DELIMETER to '//' so that '//' will end the statement
+*/
+
+DELIMITER //
+-- Add the time_of_day column
+ALTER TABLE sales ADD COLUMN time_of_day VARCHAR(20);
+
+-- Inserting data into table
+UPDATE sales SET time_of_day = (
+	CASE
+		WHEN time BETWEEN "00:00:00" AND "12:00:00" THEN "Morning"
+        WHEN time BETWEEN "12:01:00" AND "16:00:00" THEN "Afternoon"
+        ELSE "Evening"
+    END
+);
+
+-- Next, I reset the DELIMITER back to ;
+DELIMITER ;
+
+
+-- day_name column data
+SELECT
+	date,
+    DAYNAME(date) AS day_name
+FROM sales;
+
+-- creating day_name column
+ALTER TABLE sales ADD COLUMN day_name VARCHAR(10);
+
+-- inserting the data into the day_name column
+UPDATE sales SET day_name = DAYNAME(date);
+
+
+-- month_name column data
+SELECT 
+	date,
+    MONTHNAME(date) AS month_name
+FROM sales;
+
+-- creating month_name column
+ALTER TABLE sales ADD COLUMN month_name VARCHAR(10);
+
+-- inserting data into month_name column
+UPDATE sales SET month_name = MONTHNAME(date);
+
+
+-- --------------------------------------- Generic Questions ------------------------------------------
+
+-- How many different cities does the data have?
+
+SELECT
+	DISTINCT city
+FROM sales;
+
+-- In what city is each branch?
+SELECT
+	DISTINCT branch,
+    city
+FROM sales;
+
+-- Customer types
+SELECT
+	DISTINCT customer_type
+FROM sales;
+
+-- --------------------------------------- Product Line ------------------------------------------
+
+
+-- How many unique product lines does the data have?
+SELECT
+	COUNT(DISTINCT product_line) AS num_products
+FROM sales;
+
+-- What is the most selling product line?
+SELECT
+	product_line,
+    SUM(quantity) AS qty
+FROM sales
+GROUP BY product_line
+ORDER BY qty DESC;
+
+-- What product line had the largest revenue?
+SELECT
+	product_line,
+    SUM(total) AS total_revenue
+FROM sales
+GROUP BY product_line
+ORDER BY total_revenue DESC;
+
+-- What is the average rating of each product line?
+SELECT
+	product_line,
+    ROUND(AVG(rating), 2) AS avg_rating
+FROM sales
+GROUP BY product_line
+ORDER BY avg_rating DESC;
+
+-- --------------------------------------------------------------------
+-- -------------------------- Sales -------------------------------
+
+-- Number of sales made at each time of the day on a specific day
+-- First, I made a temporary table RankedSales that displayed the total sales for each combination of day_name and time_of_day
+WITH RankedSales AS (
+  SELECT
+    day_name,
+    time_of_day,
+    COUNT(*) AS total_sales,
+    ROW_NUMBER() OVER (PARTITION BY day_name ORDER BY COUNT(*) DESC) AS RowRank
+  FROM
+    sales
+  GROUP BY
+    day_name, time_of_day
+)
+/* Then I selected the columns from the temporary table RankedSales ordered first by day_name and then
+	by total_sales in descending order. This arrangement shows the time of day with the highest sales
+    at the top for each day */
+SELECT
+  day_name,
+  time_of_day,
+  total_sales
+FROM
+  RankedSales
+ORDER BY
+  day_name, total_sales DESC;
+
+-- Which branch has the most sales
+SELECT
+  branch,
+  COUNT(*) AS total_sales
+FROM sales
+GROUP BY branch
+ORDER BY total_sales DESC;
+
+-- Which day of the week is each branch the busiest?
+/*
+	I used a temporary table and ROW_NUMBER() window function to assign ranks to each day based on total sales within each branch.
+	The final SELECT statement filters the results to only include the days with rank 1, the busiest day for each branch.
+*/
+WITH RankedDays AS (
+  SELECT
+    branch,
+    day_name,
+    COUNT(*) AS total_sales,
+    ROW_NUMBER() OVER (PARTITION BY branch ORDER BY COUNT(*) DESC) AS DayRank
+  FROM
+    sales
+  GROUP BY
+    branch, day_name
+)
+SELECT
+  branch,
+  day_name,
+  total_sales
+FROM
+  RankedDays
+WHERE
+  DayRank = 1;
+
+-- Which month of the year has the most profit
+SELECT
+	month_name,
+    SUM(total) AS total_profit
+FROM sales
+GROUP BY month_name
+ORDER BY total_profit DESC;
+
+-- --------------------------------------------------------------------
+-- -------------------------- Customers -------------------------------
+
+-- What is the most common customer type?
+SELECT
+	customer_type,
+    COUNT(*) AS amt
+FROM sales
+GROUP BY customer_type
+ORDER BY amt DESC;
+
+-- Which of the customer types brings the most revenue?
+SELECT
+	customer_type,
+    SUM(total) AS total_revenue
+FROM sales
+GROUP BY customer_type
+order by total_revenue DESC;
+
+-- Most common payment
+SELECT
+	payment,
+    COUNT(payment) AS amount
+FROM sales
+GROUP BY payment
+ORDER BY amount DESC;
+
+-- What is the gender of most of the customers?
+SELECT
+	gender,
+    COUNT(*) amt
+FROM sales
+GROUP BY gender
+ORDER BY amt DESC;

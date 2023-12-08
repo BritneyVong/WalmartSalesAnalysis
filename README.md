@@ -125,6 +125,7 @@ GROUP BY product_line
 ORDER BY qty DESC;
 ```
 <img width="198" alt="Screenshot 2023-12-07 at 5 49 28 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/922203b4-b4a0-4263-beea-925c2d3588fd">
+
 The results display the six product lines as well as the product line with the most sales on top. 
 
 3. What product line had the largest revenue?
@@ -137,6 +138,7 @@ GROUP BY product_line
 ORDER BY total_revenue DESC;
 ```
 <img width="225" alt="Screenshot 2023-12-07 at 6 09 19 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/c783ccbb-5c5d-40a2-8d64-482d102a1529">
+
 This query displays the product lines with the largest revenue at the top. I was surprised to find that electronic accessories was one of the least contributors to revenue as it was the product line that sold the most.
 
 4. 

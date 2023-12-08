@@ -81,6 +81,7 @@ FROM sales;
 ```
 <img width="110" alt="Screenshot 2023-12-07 at 5 42 34 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1104210a-8998-40f1-8965-b7401a48b134">
 
+
 2. In what city is each branch?
 ```
 -- In what city is each branch?
@@ -90,6 +91,7 @@ SELECT
 FROM sales;
 ```
 <img width="147" alt="Screenshot 2023-12-07 at 5 44 06 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1b6de2d8-44ae-4bd5-bde8-41af6edb6975">
+
 
 3. How many different customer types does the data have?
 ```
@@ -114,6 +116,7 @@ FROM sales;
 ```
 <img width="147" alt="Screenshot 2023-12-07 at 5 48 27 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/0f646f1e-4d57-42b1-8e6e-4f611c4b396c">
 
+
 2. What is the most selling product line?
 ```
 -- What is the most selling product line?
@@ -128,6 +131,7 @@ ORDER BY qty DESC;
 
 The results display the six product lines as well as the product line with the most sales on top. 
 
+
 3. What product line had the largest revenue?
 ```
 SELECT
@@ -141,5 +145,6 @@ ORDER BY total_revenue DESC;
 
 This query displays the product lines with the largest revenue at the top. I was surprised to find that electronic accessories was one of the least contributors to revenue as it was the product line that sold the most.
 
-4. 
+
+4. What is the average rating of each product line?
 

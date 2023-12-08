@@ -64,3 +64,5 @@ ALTER TABLE sales ADD COLUMN month_name VARCHAR(10);
 -- inserting data into month_name column
 UPDATE sales SET month_name = MONTHNAME(date);
 ```
+
+<img width="220" alt="Screenshot 2023-12-07 at 5 10 08 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/670bea9f-6a64-490e-9937-e7d8eca12290">

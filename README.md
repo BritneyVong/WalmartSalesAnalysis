@@ -83,7 +83,7 @@ FROM sales;
 
 2. In what city is each branch?
 ```
--- In which city is each branch?
+-- In what city is each branch?
 SELECT
 	DISTINCT branch,
     city
@@ -92,3 +92,36 @@ FROM sales;
 <img width="147" alt="Screenshot 2023-12-07 at 5 44 06 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1b6de2d8-44ae-4bd5-bde8-41af6edb6975">
 
 3. How many different customer types does the data have?
+```
+-- Customer types
+SELECT
+	DISTINCT customer_type
+FROM sales;
+```
+<img width="147" alt="Screenshot 2023-12-07 at 5 46 16 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/7737cd12-4c17-47ae-be36-11a6b7e1d853">
+
+### Product Analysis
+Conduct analysis of the data to understand the different product lines, the product lines performing best, and the product lines that need to be improved.
+
+1. How many unique product lines does the data have?
+```
+-- How many unique product lines does the data have?
+SELECT
+	COUNT(DISTINCT product_line) AS num_products
+FROM sales;
+```
+<img width="147" alt="Screenshot 2023-12-07 at 5 48 27 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/0f646f1e-4d57-42b1-8e6e-4f611c4b396c">
+
+2. What is the most selling product line?
+```
+-- What is the most selling product line?
+SELECT
+	product_line,
+    SUM(quantity) AS qty
+FROM sales
+GROUP BY product_line
+ORDER BY qty DESC;
+```
+<img width="198" alt="Screenshot 2023-12-07 at 5 49 28 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/922203b4-b4a0-4263-beea-925c2d3588fd">
+
+3. 

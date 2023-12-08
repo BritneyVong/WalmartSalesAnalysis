@@ -208,3 +208,121 @@ ORDER BY
 The data shows that evenings experience most sales, and the stores are filled during the evening hours. Mornings are the least busy.
 
 2. Which branch has the most sales
+```
+-- Which branch has the most sales
+SELECT
+  branch,
+  COUNT(*) AS total_sales
+FROM sales
+GROUP BY branch
+ORDER BY total_sales DESC;
+```
+<img width="136" alt="Screenshot 2023-12-07 at 7 38 17 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/92590a14-5007-4dc7-be0e-7971a0933b6d">
+
+Branch A is leading in total sales with 339, followed closely by B with 329 and C with 327. We can look deeper into this by finding the busiest day for each branch.
+
+3. Which day of the week is each branch the busiest?
+```
+-- Which day of the week is each branch the busiest?
+/*
+	I used a temporary table and ROW_NUMBER() window function to assign ranks to each day based on total sales within each branch.
+	The final SELECT statement filters the results to only include the days with rank 1, the busiest day for each branch.
+*/
+WITH RankedDays AS (
+  SELECT
+    branch,
+    day_name,
+    COUNT(*) AS total_sales,
+    ROW_NUMBER() OVER (PARTITION BY branch ORDER BY COUNT(*) DESC) AS DayRank
+  FROM
+    sales
+  GROUP BY
+    branch, day_name
+)
+SELECT
+  branch,
+  day_name,
+  total_sales
+FROM
+  RankedDays
+WHERE
+  DayRank = 1;
+```
+<img width="207" alt="Screenshot 2023-12-07 at 7 40 38 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/ac23924a-e127-4906-97c8-efac380e4fe8">
+
+The analysis reveals the busiest days for each branch:
+Branch A: Sunday with 52 sales
+Branch B: Saturday with 60 sales
+Branch C: Tuesday with 54 sales
+Understanding the branch-specific busiest days helps in tailoring strategies for promotions, staffing, and events to maximize sales on those days.
+
+
+4. Which month of the year has the most profit?
+```
+-- Which month of the year has the most profit
+SELECT
+	month_name,
+    SUM(total) AS total_profit
+FROM sales
+GROUP BY month_name
+ORDER BY total_profit DESC;
+```
+<img width="207" alt="Screenshot 2023-12-07 at 7 44 13 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/df2b3222-55f2-4ccc-928d-33c84455a3ce">
+
+This query shows the results of each month's profit with the one with the most profitable month at the top. January had the most profit out of the two months, followed by March and February.
+
+## Customer Analysis
+This analysis aims to uncover the different customer segments and purchase trends.
+
+1. What is the most common customer type?
+```
+-- What is the most common customer type?
+SELECT
+	customer_type,
+    COUNT(*) AS amt
+FROM sales
+GROUP BY customer_type
+ORDER BY amt DESC;
+```
+<img width="207" alt="Screenshot 2023-12-07 at 7 46 56 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/69dbabb9-9c19-4bab-8750-3efe356a4158">
+
+2. Which of the customer types brings the most revenue?
+```
+-- Which of the customer types brings the most revenue?
+SELECT
+	customer_type,
+    SUM(total) AS total_revenue
+FROM sales
+GROUP BY customer_type
+order by total_revenue DESC;
+```
+<img width="207" alt="Screenshot 2023-12-07 at 7 48 12 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/f3b0d9e8-12fc-4fea-be65-09a368c6089e">
+
+The revenue breakdown by customer type indicates that Member customers are a significant contributor to overall revenue. We could consider analyzing the behavior and preferences of Member customers to enhance loyalty programs and potentially attract more members. 
+
+3. What is the most common payment method?
+```
+SELECT
+	payment,
+    COUNT(payment) AS amount
+FROM sales
+GROUP BY payment
+ORDER BY amount DESC;
+```
+<img width="207" alt="Screenshot 2023-12-07 at 7 49 40 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/d241e502-e9fa-42e5-88d0-a8f4700b45c4">
+
+4. Most common product line by gender
+```
+-- What is the gender of most of the customers?
+SELECT
+	gender,
+    COUNT(*) amt
+FROM sales
+GROUP BY gender
+ORDER BY amt DESC;
+```
+<img width="116" alt="Screenshot 2023-12-07 at 7 50 49 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/4a6b1e98-2064-4ab2-acd9-1d4857683a23">
+
+## Results and Final Notes
+
+Using SQL, I was able to find interesting insights into Walmart sales. Branch A has the most sales and Branch B has the busiest day of the week. Top performing product lines were electronic accessories and food and beverages. Although electronic accessories are sold the most, it’s interesting to see that they as not performing as well in terms of rating and revenue when compared to other product lines. However, food and beverages is consistent in performing well with ratings, sales, and revenue. Members are the most common type of customers and bring in the most revenue. While Normal customers contribute substantial revenue, there may be opportunities to increase their engagement or incentivize higher spending.

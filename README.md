@@ -80,7 +80,7 @@ SELECT
 FROM sales;
 ```
 <img width="110" alt="Screenshot 2023-12-07 at 5 42 34 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/1104210a-8998-40f1-8965-b7401a48b134">
-&nbsp;  
+
 
 2. In what city is each branch?
 ```
@@ -149,3 +149,18 @@ This query displays the product lines with the largest revenue at the top. I was
 
 4. What is the average rating of each product line?
 
+
+      First line with the HTML tag after.&lt;br&gt;<br>
+      And the next line.<br><br>
+    </code>
+  </td>
+  <td>
+    <code class="highlighter-rouge">
+    First line with a backslash after.\<br>
+    And the next line.<br><br>
+
+    First line with nothing after.<br>
+    And the next line.<br><br>
+    </code>
+  </td>
+</tr>

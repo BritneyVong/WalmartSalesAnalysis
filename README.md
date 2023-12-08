@@ -174,7 +174,7 @@ Health and beauty also had the lowest revenue of $48,854.3790. It's worth consid
 Home and lifestyle and Sports and travel have slightly lower average ratings (6.84 and 6.86, respectively). There may be opportunities to improve customer satisfaction in these categories.
 
 ## Sales Analysis
-This analysis aims to answer the question of the sales trends among the branches. The result of this can help us determine what modifications should be considered to gain more sales.
+This analysis aims to answer the question of the sales trends among the branches. The result of this can help us determine what modifications could be considered to gain more sales.
 
 1. Number of sales made at each time of the day per weekday
 ```

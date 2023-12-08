@@ -10,7 +10,7 @@ For more detailed information about the data, I modified the table to add some n
 
 > time_of_day will give insight into sales in the Morning, Afternoon, and Evening. This will help answer the question of which part of the day most sales are made.
 
-`
+```
 /* MySQL appears to be running the alter table query at the same time as the udpate query so I keep getting an error loading in the data
 into the time_of_day column because the alter table query runs again and there is a dupliacte column. To fix this, I added a DELIMITER
 statement to run both queries at the same time. First I set the DELIMETER to '//' so that '//' will end the statement
@@ -32,4 +32,4 @@ UPDATE sales SET time_of_day = (
 -- Next, I reset the DELIMITER back to ;
 DELIMITER ;
 
-`
+```

@@ -149,18 +149,3 @@ This query displays the product lines with the largest revenue at the top. I was
 
 4. What is the average rating of each product line?
 
-
-      First line with the HTML tag after.&lt;br&gt;<br>
-      And the next line.<br><br>
-    </code>
-  </td>
-  <td>
-    <code class="highlighter-rouge">
-    First line with a backslash after.\<br>
-    And the next line.<br><br>
-
-    First line with nothing after.<br>
-    And the next line.<br><br>
-    </code>
-  </td>
-</tr>

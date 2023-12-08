@@ -102,7 +102,7 @@ FROM sales;
 
 The sales data containes three cities—Mandalay (Branch B), Yangon (Branch A), and Naypyitaw (Branch C). Additionally, two distinct customer types, Normal and Member.
 
-### Product Analysis
+## Product Analysis
 Conduct analysis of the data to understand the different product lines, the product lines performing best, and the product lines that need to be improved.
 
 1. How many unique product lines does the data have?

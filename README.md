@@ -172,3 +172,39 @@ Health and beauty sold the least products with 844 units sold. This product line
 Health and beauty also had the lowest revenue of $48,854.3790. It's worth considering strategies to boost sales in this category.
 
 Home and lifestyle and Sports and travel have slightly lower average ratings (6.84 and 6.86, respectively). There may be opportunities to improve customer satisfaction in these categories.
+
+## Sales Analysis
+This analysis aims to answer the question of the sales trends among the branches. The result of this can help us determine what modifications should be considered to gain more sales.
+
+1. Number of sales made at each time of the day per weekday
+```
+-- Number of sales made at each time of the day on a specific day
+-- First, I made a temporary table RankedSales that displayed the total sales for each combination of day_name and time_of_day
+WITH RankedSales AS (
+  SELECT
+    day_name,
+    time_of_day,
+    COUNT(*) AS total_sales,
+    ROW_NUMBER() OVER (PARTITION BY day_name ORDER BY COUNT(*) DESC) AS RowRank
+  FROM
+    sales
+  GROUP BY
+    day_name, time_of_day
+)
+/* Then I selected the columns from the temporary table RankedSales ordered first by day_name and then
+	by total_sales in descending order. This arrangement shows the time of day with the highest sales
+    at the top for each day */
+SELECT
+  day_name,
+  time_of_day,
+  total_sales
+FROM
+  RankedSales
+ORDER BY
+  day_name, total_sales DESC;
+```
+<img width="225" alt="Screenshot 2023-12-07 at 6 50 00 PM" src="https://github.com/BritneyVong/WalmartSalesAnalysis/assets/130412196/a971118a-9bfb-4993-93ee-5c8a6ae95744">
+
+The data shows that evenings experience most sales, and the stores are filled during the evening hours. Mornings are the least busy.
+
+2. Which branch has the most sales
